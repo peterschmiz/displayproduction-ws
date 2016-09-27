@@ -1,0 +1,184 @@
+{
+	"ecmaFeatures": {},
+	"env": {
+		"browser": true,
+		"node": true,
+		"amd": true,
+		"jquery": true,
+		"phantomjs": true,
+		"jasmine": true
+	},
+	"globals": {
+		"APP": true, // Our basic, skeleton main namespace
+		"define": true, // Require.js define
+		"jasmine": true,
+		"afterEach": true,
+		"beforeEach": true,
+		"describe": true,
+		"expect": true,
+		"loadFixtures": true,
+		"it": true,
+		"module": true,
+		"window": true,
+		"navigator": true,
+		"devel": true,
+		"nonstandard": true,
+		"jQuery": true, // jQuery
+		"WebFont": true, // Google WebFont loader lib
+		"$": true, // jQuery
+		"moment": true, // Moment.js lib
+		"Modernizr": true, // Modernizr lib
+		"Handlebars": true, // Handlebars lib
+		"History": true, // History.js lib
+		"Hammer": true, // Hammer.js lib
+		"FB": true, // Facebook SDK
+		"require": true, // Require.js lib
+		"log": true, // Custom logger
+		"viewport": true, // Viewport utility
+		"ga": true, // Google Analytics
+		"process": true, // Node.JS process
+		"YT": true, // YouTube API
+		"$f": true, // FrugaLoop (Vimeo)
+		"TweenLite": true, // TweenLit
+		"MobileDetect": true, // MobileDetect
+		"docCookies": true, // Cookie handling utility
+		"Power1": true,
+		"Power0": true,
+		"Power2": true,
+		"Expo": true,
+		"EB": true,
+		"Enabler": true,
+		"dynamicContent": true
+	},
+	"rules": {
+		"comma-dangle": [2, "never"],
+		"no-cond-assign": [2, "except-parens"],
+		"no-constant-condition": 2,
+		"no-control-regex": 2,
+		"no-dupe-args": 2,
+		"no-dupe-keys": 2,
+		"no-duplicate-case": 2,
+		"no-empty": 2,
+		"no-ex-assign": 2,
+		"no-extra-boolean-cast": 2,
+		"no-extra-parens": 2,
+		"no-extra-semi": 2,
+		"no-func-assign": 2,
+		"no-inner-declarations": 2,
+		"no-invalid-regexp": 2,
+		"no-irregular-whitespace": 2,
+		"no-negated-in-lhs": 2,
+		"no-obj-calls": 2,
+		"no-regex-spaces": 2,
+		"no-sparse-arrays": 2,
+		"no-unreachable": 2,
+		"use-isnan": 2,
+		"valid-jsdoc": 2,
+		"valid-typeof": 2,
+
+		"block-scoped-var": 2,
+		"complexity": [0, 15],
+		"consistent-return": 2,
+		"curly": 2,
+		"default-case": 0,
+		"dot-notation": [2, {
+			"allowPattern": "^[a-z]+(_[a-z]+)+$"
+		}],
+		"dot-location": 0,
+		"eqeqeq": 2,
+		"guard-for-in": 2,
+		"no-alert": 1,
+		"no-caller": 2,
+		"no-div-regex": 2,
+		"no-else-return": 2,
+		"no-eq-null": 2,
+		"no-eval": 2,
+		"no-extra-bind": 2,
+		"no-fallthrough": 2,
+		"no-floating-decimal": 2,
+		"no-iterator": 2,
+		"no-labels": 2,
+		"no-lone-blocks": 2,
+		"no-loop-func": 2,
+		"no-multi-spaces": 2,
+		"no-multi-str": 2,
+		"no-native-reassign": 2,
+		"no-new-func": 2,
+		"no-new-wrappers": 2,
+		"no-new": 2,
+		"no-octal-escape": 2,
+		"no-octal": 2,
+		"no-param-reassign": 0,
+		"no-proto": 2,
+		"no-redeclare": 2,
+		"no-return-assign": 2,
+		"no-script-url": 2,
+		"no-self-compare": 2,
+		"no-sequences": 2,
+		"no-throw-literal": 2,
+		"no-unused-expressions": 2,
+		"no-unused-vars": 2,
+		"no-warning-comments": [0, {
+			"terms": ["todo", "fixme", "fix"],
+			"location": "anywhere"
+		}],
+		"no-with": 2,
+		"radix": 2,
+		"vars-on-top": 2,
+		"wrap-iife": [2, "outside"],
+		"yoda": [2, "never", {
+			"exceptRange": true
+		}],
+
+		"strict": [0, "function"],
+
+		"no-catch-shadow": 2,
+		"no-delete-var": 2,
+		"no-shadow-restricted-names": 2,
+		"no-shadow": 0,
+		"no-undef-init": 2,
+		"no-undefined": 0,
+		"no-use-before-define": 0,
+
+		"brace-style": [2, "1tbs", {
+			"allowSingleLine": true
+		}],
+		"camelcase": [2, {
+			"properties": "never"
+		}],
+		"comma-spacing": [2, {
+			"before": false,
+			"after": true
+		}],
+		"comma-style": [2, "last"],
+		"eol-last": 2,
+		"func-names": 0,
+		"func-style": [2, "declaration"],
+		"indent": [2, "tab", {"SwitchCase": 1}],
+		"max-nested-callbacks": [2, 3],
+		"new-cap": 2,
+		"new-parens": 2,
+		"newline-after-var": 2,
+		"no-array-constructor": 2,
+		"no-inline-comments": 0,
+		"no-lonely-if": 2,
+		"no-mixed-requires": [0, true],
+		"no-mixed-spaces-and-tabs": 2,
+		"no-multiple-empty-lines": [2, {
+			"max": 2
+		}],
+		"no-nested-ternary": 2,
+		"no-new-object": 2,
+		"no-spaced-func": 2,
+		"no-trailing-spaces": 2,
+		"no-unneeded-ternary": 2,
+		"no-underscore-dangle": 0,
+		"one-var": [2, "always"],
+		"operator-linebreak": [2, "after"],
+		"quote-props": [2, "as-needed"],
+		"quotes": [0, "single", "avoid-escape"],
+		"semi": [2, "always"],
+		"wrap-regex": 2
+	}
+
+}

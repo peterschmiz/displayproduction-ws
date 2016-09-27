@@ -1,0 +1,13 @@
+@font-face {
+	font-family: 'web-peugeot';
+	src: url('peugeot.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'web-peugeot-bold';
+	src: url('peugeot-bold.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
