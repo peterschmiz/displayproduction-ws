@@ -74,6 +74,10 @@ body {
     display: block;
 }
 
+#legal-trigger.active span {
+    opacity: 0.5;
+}
+
 #legal-copy {
     position: absolute;
     width: 100%;
@@ -90,6 +94,10 @@ body {
     white-space: nowrap;
     background-color: rgba(0, 0, 0, 0.8);
     transform: translate(0%, 100%);
+}
+
+#legal-copy.visible {
+    transform: translate(0%, 0%);
 }
 
 #legal-copy:before {
