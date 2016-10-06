@@ -113,14 +113,28 @@ Banner.BannerController = (function () {
 	}
 
 	function toggleLegal() {
+		var mode = 'bottom-to-top';
+
+		if (
+			window.outerWidth === 728 && window.outerHeight === 90 ||
+			window.outerWidth === 840 && window.outerHeight === 150
+		) {
+			mode = 'left-to-right';
+		}
+
+		TweenLite.set(elements.legalcopy, { clearProps: 'all' });
 
 		if (legalVisible) {
 			removeClass(elements.legaltrigger, 'active');
-			TweenLite.to(elements.legalcopy, 1, { delay: 0, ease: Expo.easeOut, y: '-100%' });
+			if (mode === 'left-to-right') {
+				TweenLite.to(elements.legalcopy, 1, { delay: 0, ease: Expo.easeOut, x: '-100%', y: '0%' });
+			} else {
+				TweenLite.to(elements.legalcopy, 1, { delay: 0, ease: Expo.easeOut, x: '0%', y: '100%' });
+			}
 			legalVisible = false;
 		} else {
 			addClass(elements.legaltrigger, 'active');
-			TweenLite.to(elements.legalcopy, 1, { delay: 0, ease: Expo.easeOut, y: '0%' });
+			TweenLite.to(elements.legalcopy, 1, { delay: 0, ease: Expo.easeOut, x: '0%', y: '0%' });
 			legalVisible = true;
 		}
 
