@@ -244,9 +244,6 @@ Banner.BannerController = (function () {
 
 	function next(delay, phase) {
 		playPhaseTimer = window.setTimeout(function () {
-			if (phase.match(/screen/)) {
-				currentFrame = parseInt(phase.replace('screen-', ''), 10);
-			}
 			playPhase(phase);
 		}, delay * 1000);
 	}

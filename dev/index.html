@@ -27,23 +27,39 @@
 	<body>
 
 		<div id="example-banner" class="banner-wrapper banner-wrapper--300x250">
-			<div id="banner-wrapper"></div>
+			<div id="banner-wrapper">
+				<div id="main-background"></div>
+				<div id="legal-trigger"><span>Mentions légales</span></div>
+				<div id="legal-copy">
+					<div class="legal-copy-content">
+						<p>The Indemnified Contributor to pay Respondent a mutually agreeable reasonable royalty for Your past and future use of the Licensed Program by such Contributor or portions thereof (including Modifications as hereinafter defined).</p>
+						<p>No one may use the Licensed Product, or for a fee. You may use the Work by You to the wide range of software may accept certain responsibilities with respect to Licensed Product under the new version. No one other than LUCENT has the right to modify the Package. Distributor Fees are allowed.</p>
+					</div>
+				</div>
+			</div>
 		</div>
 
 		<script>
-			window.onload = function () {
-				if (Enabler.isInitialized()) {
-					enablerInitHandler();
-				} else {
-					Enabler.addEventListener(studio.events.StudioEvent.INIT, enablerInitHandler);
-				}
-			};
+			(function() {
+				var peugeotNormal = new FontFaceObserver('web-peugeot');
+				var peugeotBold = new FontFaceObserver('web-peugeot-bold');
 
-			function enablerInitHandler() {
-				new window.FontFaceObserver('web-peugeot').check().then(function () {
-					Banner.init('example-banner', []);
-				});
-			}
+				window.onload = function () {
+					if (Enabler.isInitialized()) {
+						enablerInitHandler();
+					} else {
+						Enabler.addEventListener(studio.events.StudioEvent.INIT, enablerInitHandler);
+					}
+				};
+
+				function enablerInitHandler() {
+					console.log('%c [Banner] Loading webfonts...', 'background: #199860; color: #fff');
+					Promise.all([peugeotNormal.load(), peugeotBold.load()]).then(function () {
+						console.log('%c [Banner] Webfonts loaded!', 'background: #199860; color: #fff');
+						Banner.init('example-banner', []);
+					});
+				}
+			}());
 		</script>
 	</body>
 </html>
