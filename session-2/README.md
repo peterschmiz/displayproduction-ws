@@ -7,9 +7,9 @@
 - QA
 
 ## Useful links
-https://developer.mozilla.org/en-US/docs/Web/CSS
-http://caniuse.com/
-https://andrewsun.com/tools/woffer-woff-font-converter/
-https://www.fontsquirrel.com/tools/webfont-generator
-http://www.colorzilla.com/gradient-editor/
-https://www.asafraction.com/number/0.26
+https://developer.mozilla.org/en-US/docs/Web/CSS 
+http://caniuse.com/ 
+https://andrewsun.com/tools/woffer-woff-font-converter/ 
+https://www.fontsquirrel.com/tools/webfont-generator 
+http://www.colorzilla.com/gradient-editor/ 
+https://www.asafraction.com/number/0.26 
