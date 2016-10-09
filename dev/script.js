@@ -96,6 +96,7 @@ Banner.BannerController = (function () {
 		initDOMElements();
 		initBindings();
 		addClass(Banner.element, 'loaded');
+		play();
 	}
 
 	function bgExitHandler() {
@@ -116,13 +117,11 @@ Banner.BannerController = (function () {
 		var mode = 'bottom-to-top';
 
 		if (
-			window.outerWidth === 728 && window.outerHeight === 90 ||
-			window.outerWidth === 840 && window.outerHeight === 150
+			document.body.clientWidth === 728 && document.body.clientHeight === 90 ||
+			document.body.clientWidth === 840 && document.body.clientHeight === 150
 		) {
 			mode = 'left-to-right';
 		}
-
-		TweenLite.set(elements.legalcopy, { clearProps: 'all' });
 
 		if (legalVisible) {
 			removeClass(elements.legaltrigger, 'active');
@@ -132,10 +131,12 @@ Banner.BannerController = (function () {
 				TweenLite.to(elements.legalcopy, 1, { delay: 0, ease: Expo.easeOut, x: '0%', y: '100%' });
 			}
 			legalVisible = false;
+			playPhase(actualPhase);
 		} else {
 			addClass(elements.legaltrigger, 'active');
 			TweenLite.to(elements.legalcopy, 1, { delay: 0, ease: Expo.easeOut, x: '0%', y: '0%' });
 			legalVisible = true;
+			window.clearTimeout(playPhaseTimer);
 		}
 
 	}
@@ -167,8 +168,28 @@ Banner.BannerController = (function () {
 		}
 	}
 
-	function playPhase(phaseName) {
+	function polarToCartesian(centerX, centerY, radius, angleInDegrees) {
+		var angleInRadians = (angleInDegrees - 90) * Math.PI / 180.0;
 
+		return {
+			x: centerX + radius * Math.cos(angleInRadians),
+			y: centerY + radius * Math.sin(angleInRadians)
+		};
+	}
+
+	function describeArc(x, y, radius, startAngle, endAngle) {
+		var start = polarToCartesian(x, y, radius, endAngle),
+			end = polarToCartesian(x, y, radius, startAngle),
+			largeArcFlag = endAngle - startAngle <= 180 ? '0' : '1',
+			d = [
+				'M', start.x, start.y,
+				'A', radius, radius, 0, largeArcFlag, 0, end.x, end.y
+			].join(' ');
+
+		return d;
+	}
+
+	function playPhase(phaseName) {
 		console.log('%c [Banner.BannerController] Playing phase: %s ', 'background: #199860; color: #fff', phaseName);
 
 		if (!currentlyVisible) {
@@ -176,18 +197,51 @@ Banner.BannerController = (function () {
 			return;
 		}
 
+		elements.circle1.setAttribute('d', describeArc(82, 82, 80, 120, 420));
+		elements.circle2.setAttribute('d', describeArc(82, 82, 76, 130, 430));
+		elements.circle3.setAttribute('d', describeArc(82, 82, 72, 140, 440));
+		elements.circle4.setAttribute('d', describeArc(82, 82, 68, 150, 450));
+		elements.circle5.setAttribute('d', describeArc(82, 82, 64, 160, 460));
+		elements.circle6.setAttribute('d', describeArc(82, 82, 60, 170, 470));
+
 		switch (phaseName) {
 
 			case 'start-screen':
 				removeStyles();
-				removeClass(elements.legaltrigger, 'active');
-				next(1, 'screen-1');
+				next(0.1, 'screen-1');
 				break;
 			case 'screen-1':
-				next(1, 'screen-2');
+				TweenLite.to(elements.headline1, 0.5, { delay: 0.5, ease: Expo.easeOut, opacity: 1 });
+
+				if (
+					document.body.clientWidth === 300 && document.body.clientHeight === 250 ||
+					document.body.clientWidth === 160 && document.body.clientHeight === 160
+				) {
+					TweenLite.to(elements.headline1, 1, {
+						delay: 2,
+						ease: Expo.easeOut,
+						y: document.body.clientHeight === 160 ? 100 : 150
+					});
+					if (document.body.clientHeight === 160) {
+						TweenLite.to(elements.mainbackground, 1, {
+							delay: 2,
+							ease: Expo.easeOut,
+							backgroundPosition: 'center 10%'
+						});
+					} else {
+						TweenLite.to(elements.mainbackground, 1, {
+							delay: 2,
+							ease: Expo.easeOut,
+							backgroundPosition: 'center 30%'
+						});
+					}
+				} else {
+					TweenLite.to(elements.headline1, 1, { delay: 2, ease: Expo.easeOut, opacity: 0 });
+				}
+				next(20, 'screen-2');
 				break;
 			case 'screen-2':
-				next(1, 'restart');
+				next(100, 'restart');
 				break;
 			case 'restart':
 				console.log('%c [Banner.BannerController] Banner is looping, restarting... ', 'background: #199860; color: #fff');
