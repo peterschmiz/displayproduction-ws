@@ -95,8 +95,39 @@ Banner.BannerController = (function () {
 		initWindowShowListener();
 		initDOMElements();
 		initBindings();
-		addClass(Banner.element, 'loaded');
+		generateCircles();
+		if (hasClass(Banner.element, 'loaded') === false) {
+			addClass(Banner.element, 'loaded');
+		} else {
+			removeClass(Banner.element, 'loaded');
+		}
 		play();
+	}
+
+	function generateCircles() {
+		var randomInterval1 = getRandomInt(120, 180),
+			randomInterval2 = getRandomInt(380, 420),
+			randomInterval3 = getRandomInt(100, 140),
+			randomInterval4 = getRandomInt(400, 420),
+			randomInterval5 = getRandomInt(100, 130),
+			randomInterval6 = getRandomInt(360, 420),
+			randomInterval7 = getRandomInt(90, 100),
+			randomInterval8 = getRandomInt(330, 390),
+			randomInterval9 = getRandomInt(90, 120),
+			randomInterval10 = getRandomInt(340, 420);
+
+
+		elements.circle1part1.setAttribute('d', describeArc(82, 82, 80, randomInterval1, randomInterval2));
+		elements.circle1part2.setAttribute('d', describeArc(82, 82, 78, randomInterval1, randomInterval2));
+
+		elements.circle2.setAttribute('d', describeArc(82, 82, 74, randomInterval3, randomInterval4));
+		elements.circle3.setAttribute('d', describeArc(82, 82, 69, randomInterval5, randomInterval6));
+		elements.circle4.setAttribute('d', describeArc(82, 82, 64, randomInterval5, randomInterval6));
+
+		elements.circle5part1.setAttribute('d', describeArc(82, 82, 60, randomInterval7, randomInterval8));
+		elements.circle5part2.setAttribute('d', describeArc(82, 82, 58, randomInterval7, randomInterval8));
+
+		elements.circle6.setAttribute('d', describeArc(82, 82, 54, randomInterval9, randomInterval10));
 	}
 
 	function bgExitHandler() {
@@ -123,7 +154,7 @@ Banner.BannerController = (function () {
 			mode = 'left-to-right';
 		}
 
-		if (legalVisible) {
+		if (legalVisible === true) {
 			removeClass(elements.legaltrigger, 'active');
 			if (mode === 'left-to-right') {
 				TweenLite.to(elements.legalcopy, 1, { delay: 0, ease: Expo.easeOut, x: '-100%', y: '0%' });
@@ -131,6 +162,7 @@ Banner.BannerController = (function () {
 				TweenLite.to(elements.legalcopy, 1, { delay: 0, ease: Expo.easeOut, x: '0%', y: '100%' });
 			}
 			legalVisible = false;
+			elements.legaltrigger.removeEventListener('click', toggleLegal, false);
 			playPhase(actualPhase);
 		} else {
 			addClass(elements.legaltrigger, 'active');
@@ -168,6 +200,10 @@ Banner.BannerController = (function () {
 		}
 	}
 
+	function getRandomInt(min, max) {
+		return Math.floor(Math.random() * (max - min + 1) + min);
+	}
+
 	function polarToCartesian(centerX, centerY, radius, angleInDegrees) {
 		var angleInRadians = (angleInDegrees - 90) * Math.PI / 180.0;
 
@@ -197,13 +233,6 @@ Banner.BannerController = (function () {
 			return;
 		}
 
-		elements.circle1.setAttribute('d', describeArc(82, 82, 80, 120, 420));
-		elements.circle2.setAttribute('d', describeArc(82, 82, 76, 130, 430));
-		elements.circle3.setAttribute('d', describeArc(82, 82, 72, 140, 440));
-		elements.circle4.setAttribute('d', describeArc(82, 82, 68, 150, 450));
-		elements.circle5.setAttribute('d', describeArc(82, 82, 64, 160, 460));
-		elements.circle6.setAttribute('d', describeArc(82, 82, 60, 170, 470));
-
 		switch (phaseName) {
 
 			case 'start-screen':
@@ -211,7 +240,7 @@ Banner.BannerController = (function () {
 				next(0.1, 'screen-1');
 				break;
 			case 'screen-1':
-				TweenLite.to(elements.headline1, 0.5, { delay: 0.5, ease: Expo.easeOut, opacity: 1 });
+				TweenLite.to(elements.headline1, 0.5, { delay: 0.5, ease: Expo.easeOut, opacity: 1, repeat: 5, yoyo: true });
 
 				if (
 					document.body.clientWidth === 300 && document.body.clientHeight === 250 ||
@@ -222,6 +251,9 @@ Banner.BannerController = (function () {
 						ease: Expo.easeOut,
 						y: document.body.clientHeight === 160 ? 100 : 150
 					});
+
+					TweenLite.to(elements.circleswrapper, 1, { delay: 2, ease: Expo.easeOut, y: 8 });
+
 					if (document.body.clientHeight === 160) {
 						TweenLite.to(elements.mainbackground, 1, {
 							delay: 2,
@@ -238,7 +270,7 @@ Banner.BannerController = (function () {
 				} else {
 					TweenLite.to(elements.headline1, 1, { delay: 2, ease: Expo.easeOut, opacity: 0 });
 				}
-				next(20, 'screen-2');
+				next(3, 'screen-2');
 				break;
 			case 'screen-2':
 				next(100, 'restart');

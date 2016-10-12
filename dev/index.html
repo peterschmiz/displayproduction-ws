@@ -26,17 +26,55 @@
 	</head>
 	<body>
 
-		<div id="example-banner" class="banner-wrapper banner-wrapper--300x250_">
+		<div id="example-banner" class="banner-wrapper">
 			<div id="banner-wrapper">
-				<div id="circles" class="circles">
-					<svg xmlns="http://www.w3.org/2000/svg" version="1.1">
-						<path id="circle1" fill="none" stroke="#102949" stroke-width="2"></path>
-						<path id="circle2" fill="none" stroke="#102949" stroke-width="2"></path>
-						<path id="circle3" fill="none" stroke="#102949" stroke-width="2"></path>
-						<path id="circle4" fill="none" stroke="#102949" stroke-width="2"></path>
-						<path id="circle5" fill="none" stroke="#102949" stroke-width="2"></path>
-						<path id="circle6" fill="none" stroke="#102949" stroke-width="2"></path>
-					</svg>
+
+				<div id="circles-wrapper">
+
+					<div id="circles1" class="circles">
+						<svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 164 164" xml:space="preserve">
+							<path id="circle1-part1" fill="none" stroke="#102949" stroke-width="1"></path>
+							<path id="circle1-part2" fill="none" stroke="#102949" stroke-width="1"></path>
+						</svg>
+					</div>
+
+					<div id="circles2" class="circles">
+						<svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 164 164" xml:space="preserve">
+							<path id="circle2" fill="none" stroke="#102949" stroke-width="3"></path>
+						</svg>
+					</div>
+
+					<div id="circles3" class="circles">
+						<svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 164 164" xml:space="preserve">
+							<path id="circle3" fill="none" stroke="#102949" stroke-width="3"></path>
+						</svg>
+					</div>
+
+					<div id="circles4" class="circles">
+						<svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 164 164" xml:space="preserve">
+							<path id="circle4" fill="none" stroke="#102949" stroke-width="3"></path>
+						</svg>
+					</div>
+
+					<div id="circles5" class="circles">
+						<svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 164 164" xml:space="preserve">
+							<path id="circle5-part1" fill="none" stroke="#102949" stroke-width="1"></path>
+							<path id="circle5-part2" fill="none" stroke="#102949" stroke-width="1"></path>
+						</svg>
+					</div>
+
+					<div id="circles6" class="circles">
+						<svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 164 164" xml:space="preserve">
+							<path id="circle6" fill="none" stroke="#102949" stroke-width="3"></path>
+						</svg>
+					</div>
+
+				</div>
+
+				<div id="circle-text">
+					<div class="line1">JUSQU'À</div>
+					<div class="line2">3</div>
+					<div class="line1">ANS DE GARANTIE</div>
 				</div>
 				<div id="main-background"></div>
 				<h3 id="headline-1">Roulez en toute sérénité</h3>
@@ -67,7 +105,10 @@
 					console.log('%c [Banner] Loading webfonts...', 'background: #199860; color: #fff');
 					Promise.all([peugeotNormal.load(), peugeotBold.load()]).then(function () {
 						console.log('%c [Banner] Webfonts loaded!', 'background: #199860; color: #fff');
-						Banner.init('example-banner', []);
+						Banner.init('example-banner', [
+							'bg-main.jpg',
+							'bg-main-1-2.jpg'
+						]);
 					});
 				}
 			}());

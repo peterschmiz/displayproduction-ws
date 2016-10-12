@@ -16,9 +16,11 @@
 
 ## Session 3 - 12/10/16 - 18:00-20:00
 - continue the responsive banner
-- finish, optimisation
-- testing (e.g. DC, Sizmek)
 - tools, techniques to speed up development (e.g. Grunt / Gulp, Sass etc.)
 - QA
 
 ## Session 4 (if needed) - 19/10/16 - 18:00-20:00
+- finish, optimisation
+- testing (e.g. DC, Sizmek)
+- tools, techniques to speed up development (e.g. Grunt / Gulp, Sass etc.)
+- QA
