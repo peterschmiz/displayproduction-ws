@@ -106,15 +106,16 @@ Banner.BannerController = (function () {
 
 	function generateCircles() {
 		var randomInterval1 = getRandomInt(120, 180),
-			randomInterval2 = getRandomInt(380, 420),
+			randomInterval2 = getRandomInt(360, 380),
 			randomInterval3 = getRandomInt(100, 140),
-			randomInterval4 = getRandomInt(400, 420),
+			randomInterval4 = getRandomInt(400, 400),
 			randomInterval5 = getRandomInt(100, 130),
-			randomInterval6 = getRandomInt(360, 420),
+			randomInterval6 = getRandomInt(360, 400),
 			randomInterval7 = getRandomInt(90, 100),
-			randomInterval8 = getRandomInt(330, 390),
+			randomInterval8 = getRandomInt(330, 370),
 			randomInterval9 = getRandomInt(90, 120),
-			randomInterval10 = getRandomInt(340, 420);
+			randomInterval10 = getRandomInt(340, 400),
+			paths, i, l, path;
 
 
 		elements.circle1part1.setAttribute('d', describeArc(82, 82, 80, randomInterval1, randomInterval2));
@@ -128,6 +129,18 @@ Banner.BannerController = (function () {
 		elements.circle5part2.setAttribute('d', describeArc(82, 82, 58, randomInterval7, randomInterval8));
 
 		elements.circle6.setAttribute('d', describeArc(82, 82, 54, randomInterval9, randomInterval10));
+
+		if (document.body.clientWidth === 160 && document.body.clientHeight === 600) {
+			paths = document.querySelectorAll('svg path');
+			l = paths.length;
+
+			for (i = 0; i < l; i++) {
+				path = paths[i];
+				path.setAttribute('stroke', '#fff');
+			}
+
+			console.log(paths);
+		}
 	}
 
 	function bgExitHandler() {
@@ -267,6 +280,14 @@ Banner.BannerController = (function () {
 							backgroundPosition: 'center 30%'
 						});
 					}
+				} else if (document.body.clientWidth === 300 && document.body.clientHeight === 600) {
+					TweenLite.to(elements.mainbackground, 1, {
+						delay: 2,
+						ease: Expo.easeOut,
+						backgroundPosition: 'center 60%'
+					});
+					TweenLite.to(elements.circleswrapper, 1, { delay: 2, ease: Expo.easeOut, y: 10 });
+					TweenLite.to(elements.headline1, 1, { delay: 2, ease: Expo.easeOut, y: 180 });
 				} else {
 					TweenLite.to(elements.headline1, 1, { delay: 2, ease: Expo.easeOut, opacity: 0 });
 				}
