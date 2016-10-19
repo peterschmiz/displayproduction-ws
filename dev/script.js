@@ -138,8 +138,6 @@ Banner.BannerController = (function () {
 				path = paths[i];
 				path.setAttribute('stroke', '#fff');
 			}
-
-			console.log(paths);
 		}
 	}
 
