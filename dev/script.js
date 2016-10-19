@@ -83,9 +83,7 @@ Banner.BannerController = (function () {
 
 	var exports = {},
 		isStarted = false,
-		actualPhase = 0,
 		legalVisible = false,
-		playPhaseTimer = 0,
 		currentlyVisible = false,
 		elements = {};
 
@@ -168,16 +166,16 @@ Banner.BannerController = (function () {
 		if (legalVisible === true) {
 			removeClass(elements.legaltrigger, 'active');
 			if (mode === 'left-to-right') {
-				TweenLite.to(elements.legalcopy, 1, { delay: 0, ease: Expo.easeOut, x: '-100%', y: '0%' });
+				TweenMax.to(elements.legalcopy, 1, { delay: 0, ease: Expo.easeOut, x: '-100%', y: '0%' });
 			} else {
-				TweenLite.to(elements.legalcopy, 1, { delay: 0, ease: Expo.easeOut, x: '0%', y: '100%' });
+				TweenMax.to(elements.legalcopy, 1, { delay: 0, ease: Expo.easeOut, x: '0%', y: '100%' });
 			}
 			legalVisible = false;
 			elements.legaltrigger.removeEventListener('click', toggleLegal, false);
 			playPhase(actualPhase);
 		} else {
 			addClass(elements.legaltrigger, 'active');
-			TweenLite.to(elements.legalcopy, 1, { delay: 0, ease: Expo.easeOut, x: '0%', y: '0%' });
+			TweenMax.to(elements.legalcopy, 1, { delay: 0, ease: Expo.easeOut, x: '0%', y: '0%' });
 			legalVisible = true;
 			window.clearTimeout(playPhaseTimer);
 		}
@@ -204,7 +202,7 @@ Banner.BannerController = (function () {
 		for (i in elements) {
 			if (elements.hasOwnProperty(i)) {
 				if (elements[i].getAttribute('data-fixed-style') === null) {
-					TweenLite.set(elements[i], { clearProps: 'all' });
+					TweenMax.set(elements[i], { clearProps: 'all' });
 					elements[i].setAttribute('style', '');
 				}
 			}
@@ -239,69 +237,84 @@ Banner.BannerController = (function () {
 	function playPhase(phaseName) {
 		console.log('%c [Banner.BannerController] Playing phase: %s ', 'background: #199860; color: #fff', phaseName);
 
-		if (!currentlyVisible) {
-			next(2, phaseName);
-			return;
-		}
-
 		switch (phaseName) {
 
 			case 'start-screen':
+				console.time('measurement');
 				removeStyles();
-				next(0.1, 'screen-1');
+				playPhase('screen-1');
 				break;
 			case 'screen-1':
-				TweenLite.to(elements.headline1, 0.5, { delay: 0.5, ease: Expo.easeOut, opacity: 1, repeat: 5, yoyo: true });
+
+				TweenMax.to(elements.headline1, 0.5, { delay: 0.5, ease: Expo.easeOut, opacity: 1 });
 
 				if (
 					document.body.clientWidth === 300 && document.body.clientHeight === 250 ||
 					document.body.clientWidth === 160 && document.body.clientHeight === 160
 				) {
-					TweenLite.to(elements.headline1, 1, {
+					TweenMax.to(elements.headline1, 1, {
 						delay: 2,
 						ease: Expo.easeOut,
 						y: document.body.clientHeight === 160 ? 100 : 150
 					});
 
-					TweenLite.to(elements.circleswrapper, 1, { delay: 2, ease: Expo.easeOut, y: 8 });
+					TweenMax.to(elements.circleswrapper, 1, { delay: 2, ease: Expo.easeOut, y: 8 });
 
 					if (document.body.clientHeight === 160) {
-						TweenLite.to(elements.mainbackground, 1, {
+						TweenMax.to(elements.mainbackground, 1, {
 							delay: 2,
 							ease: Expo.easeOut,
 							backgroundPosition: 'center 10%'
 						});
 					} else {
-						TweenLite.to(elements.mainbackground, 1, {
+						TweenMax.to(elements.mainbackground, 1, {
 							delay: 2,
 							ease: Expo.easeOut,
 							backgroundPosition: 'center 30%'
 						});
 					}
 				} else if (document.body.clientWidth === 300 && document.body.clientHeight === 600) {
-					TweenLite.to(elements.mainbackground, 1, {
+					TweenMax.to(elements.mainbackground, 1, {
 						delay: 2,
 						ease: Expo.easeOut,
 						backgroundPosition: 'center 60%'
 					});
-					TweenLite.to(elements.circleswrapper, 1, { delay: 2, ease: Expo.easeOut, y: 10 });
-					TweenLite.to(elements.headline1, 1, { delay: 2, ease: Expo.easeOut, y: 180 });
+					TweenMax.to(elements.circleswrapper, 1, { delay: 2, ease: Expo.easeOut, y: 10 });
+					TweenMax.to(elements.headline1, 1, { delay: 2, ease: Expo.easeOut, y: 180 });
+				} else if (document.body.clientWidth === 160 && document.body.clientHeight === 600) {
+					TweenMax.to(elements.headline1, 1, { delay: 2, ease: Expo.easeOut, y: -60 });
+					TweenMax.to(elements.circleswrapper, 1, { delay: 2, ease: Expo.easeOut, y: -80 });
 				} else {
-					TweenLite.to(elements.headline1, 1, { delay: 2, ease: Expo.easeOut, opacity: 0 });
+					TweenMax.to(elements.headline1, 1, { delay: 2, ease: Expo.easeOut, opacity: 0 });
 				}
-				next(3, 'screen-2');
+
+				TweenMax.set(elements.headline1, {
+					delay: 3,
+					onComplete: function() {
+						playPhase('screen-2');
+					}
+				});
 				break;
 			case 'screen-2':
-				next(100, 'restart');
+				TweenMax.to([elements.circles1, elements.circles2], 1, { delay: 0, css:{ transform:"rotate(" + getRandomInt(20, 30) * -1 + "deg)" }});
+
+				TweenMax.to(elements.circles1, 1, { delay: 0, css:{ transform:"rotate(" + getRandomInt(20, 30) * -1 + "deg)" }});
+				TweenMax.to(elements.circles2, 1, { delay: 0, css:{ transform:"rotate(" + getRandomInt(15, 20) * -1 + "deg)" }});
+				TweenMax.to(elements.circles3, 1, { delay: 0, css:{ transform:"rotate(" + getRandomInt(30, 50) * -1 + "deg)" }});
+				TweenMax.to(elements.circles4, 1, { delay: 0, css:{ transform:"rotate(" + getRandomInt(10, 25) * -1 + "deg)" }});
+				TweenMax.to(elements.circles5, 1, { delay: 0, css:{ transform:"rotate(" + getRandomInt(0, 10) * -1 + "deg)" }});
+				TweenMax.to(elements.circles6, 1, { delay: 0, css:{ transform:"rotate(" + getRandomInt(20, 40) * -1 + "deg)" }});
+
+
+				setTimeout(function() {
+					console.timeEnd('measurement');
+					playPhase('start-screen');
+				}, 4000);
 				break;
 			case 'restart':
 				console.log('%c [Banner.BannerController] Banner is looping, restarting... ', 'background: #199860; color: #fff');
-				next(0.3, 'start-screen');
 				break;
 		}
-
-		actualPhase = phaseName;
-
 	}
 
 	function initWindowShowListener() {
@@ -337,9 +350,9 @@ Banner.BannerController = (function () {
 			if (isStarted === false && currentlyVisible) {
 				play();
 			} else if (currentlyVisible === false) {
-				window.clearTimeout(playPhaseTimer);
+				TweenMax.pauseAll(true, true, true);
 			} else {
-				playPhase(actualPhase);
+				TweenMax.resumeAll(true, true, true);
 			}
 		}
 
@@ -359,12 +372,6 @@ Banner.BannerController = (function () {
 			playPhase('start-screen');
 			isStarted = true;
 		}
-	}
-
-	function next(delay, phase) {
-		playPhaseTimer = window.setTimeout(function () {
-			playPhase(phase);
-		}, delay * 1000);
 	}
 
 	function addClass(elem, className) {
@@ -390,7 +397,6 @@ Banner.BannerController = (function () {
 
 	exports.init = init;
 	exports.play = play;
-	exports.next = next;
 	exports.playPhase = playPhase;
 
 	return exports;

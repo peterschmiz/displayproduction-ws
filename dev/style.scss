@@ -1,0 +1,376 @@
+$peugeot-blue: #00264a;
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: "Verdana", "Geneva", sans-serif;
+  font-weight: bold;
+  background: #d0d5db;
+}
+
+.banner-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  font-family: 'web-peugeot', sans-serif;
+  border: 1px solid #d2d2d2;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.banner-wrapper--300x250 {
+  width: 300px;
+  height: 250px;
+}
+
+#banner-wrapper {
+  width: 100%;
+  height: 100%;
+}
+
+#circles-wrapper {
+  position: absolute;
+  width: 156px;
+  height: 156px;
+  top: 0;
+  left: 50%;
+  z-index: 300;
+  transform: translate(-50%, -100%);
+}
+
+#circle-text {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  font-family: 'web-peugeot-bold', sans-serif;
+  color: $peugeot-blue;
+
+  .line1,
+  .line2,
+  .line3 {
+    position: absolute;
+  }
+
+  .line1 {
+    top: 50%;
+    left: 50%;
+    margin-top: -28%;
+    margin-left: -15%;
+    font-size: 1.5vw;
+  }
+
+  .line2 {
+    width: 48%;
+    height: 48%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+
+      &.white {
+        display: none;
+      }
+
+    }
+
+  }
+
+  .line3 {
+    top: 50%;
+    left: 50%;
+    margin-top: -22%;
+    margin-left: 18%;
+    font-size: 3.5vw;
+    line-height: 85%;
+  }
+
+}
+
+.circles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.circles svg {
+  width: 100%;
+  height: 100%;
+}
+
+#main-background {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  background-color: #282c2e;
+  background-image: url(bg-main.jpg);
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+  background-position: center 100%;
+}
+
+#main-background::after {
+  position: absolute;
+  display: none;
+  content: '';
+  width: 100%;
+  height: 100px;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  background: linear-gradient(180deg, rgba(40, 44, 46, 0) 0%, rgba(40, 44, 46, 1) 100%);
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+
+#legal-trigger {
+  position: absolute;
+  width: 100%;
+  height: 20px;
+  bottom: 0;
+  left: 0;
+  z-index: 110;
+  font-size: 10px;
+  line-height: 20px;
+  color: #fff;
+  text-align: center;
+  white-space: nowrap;
+  background-color: rgba(0, 0, 0, .5);
+  cursor: pointer;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  transition: background-color 1s cubic-bezier(0.190, 1.000, 0.220, 1.000);
+}
+
+#legal-trigger span {
+  display: block;
+}
+
+#legal-trigger.active {
+  background-color: rgba(0, 0, 0, 0);
+}
+
+#legal-trigger.active span {
+  opacity: .5;
+}
+
+#legal-copy {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  font-size: 11px;
+  line-height: 13px;
+  padding: 10px;
+  color: #fff;
+  text-align: justify;
+  box-sizing: border-box;
+  white-space: nowrap;
+  background-color: rgba(0, 0, 0, .8);
+  transform: translate(0%, 100%);
+}
+
+#legal-copy.visible {
+  transform: translate(0%, 0%);
+}
+
+#legal-copy:before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+  margin-right: -.25em;
+}
+
+#legal-copy .legal-copy-content {
+  display: inline-block;
+  width: 100%;
+  vertical-align: top;
+  white-space: normal;
+}
+
+#legal-copy p {
+  padding: 0;
+  margin: 0 0 6px;
+}
+
+#headline-1 {
+  position: absolute;
+  width: 100%;
+  top: 22px;
+  left: 0;
+  padding: 0 10px;
+  margin: 0;
+  z-index: 20;
+  opacity: 0;
+  font-family: 'web-peugeot-bold', sans-serif;
+  font-size: 22px;
+  font-weight: normal;
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 22px;
+  color: $peugeot-blue;
+  box-sizing: border-box;
+}
+
+@media screen and (max-aspect-ratio: 1/2) {
+  #main-background {
+    background-image: url(bg-main-1-2.jpg);
+    background-position: center 0;
+  }
+}
+
+@media screen and (min-aspect-ratio: 5/1) {
+  #main-background {
+    background-color: #d0d5db;
+    background-size: contain;
+    background-image: url(bg-main-10-1.jpg);
+    background-position: right top;
+  }
+
+  #legal-trigger {
+    transform: rotateZ(-90deg);
+  }
+
+  #legal-copy {
+    padding-left: 30px;
+    font-size: 10px;
+    transform: translate(-100%, 0%);
+  }
+
+  #legal-copy .legal-copy-content {
+    vertical-align: middle;
+  }
+
+  #headline-1 {
+    width: auto;
+  }
+}
+
+@media screen and (width: 160px) and (height: 160px) {
+  #legal-trigger {
+    height: 12px;
+    line-height: 12px;
+    font-size: 7px;
+  }
+
+  #legal-copy {
+    padding: 5px;
+    font-size: 7px;
+    line-height: 9px;
+  }
+
+  #headline-1 {
+    top: 14px;
+    font-size: 14px;
+    line-height: 14px;
+  }
+
+  #circles-wrapper {
+    width: 90px;
+    height: 90px;
+  }
+}
+
+@media screen and (width: 160px) and (height: 600px) {
+  #main-background {
+    background-position: center -154px;
+  }
+
+  #main-background::after {
+    display: block;
+    top: 220px;
+  }
+
+  #headline-1 {
+    top: auto;
+    bottom: 160px;
+    line-height: 24px;
+    color: #fff;
+  }
+
+  #circles-wrapper {
+    width: 120px;
+    height: 120px;
+    top: auto;
+    bottom: 0;
+    left: 50%;
+    z-index: 300;
+    transform: translate(-50%, 100%);
+  }
+
+  #circle-text .line2 img {
+    display: none;
+  }
+
+  #circle-text .line2 img.white {
+    display: block;
+  }
+}
+
+@media screen and (width: 300px) and (height: 600px) {
+  #headline-1 {
+    top: 64px;
+    padding: 0 20px;
+    font-size: 32px;
+    line-height: 32px;
+  }
+
+  #main-background {
+    background-position: center 100%;
+  }
+
+  #circles-wrapper {
+    width: 200px;
+    height: 200px;
+  }
+}
+
+@media screen and (width: 728px) and (height: 90px) {
+  #legal-trigger {
+    width: 90px;
+    font-size: 9px;
+    left: 20px;
+    transform-origin: 0 20px;
+  }
+
+  #headline-1 {
+    width: auto;
+    top: 31px;
+    left: 52px;
+    font-size: 28px;
+    line-height: 28px;
+  }
+}
+
+@media screen and (width: 840px) and (height: 150px) {
+  #legal-trigger {
+    width: 150px;
+    left: -20px;
+    transform-origin: 20px 0;
+  }
+
+  #headline-1 {
+    width: 380px;
+    top: 33px;
+    left: 52px;
+    font-size: 42px;
+    line-height: 42px;
+  }
+}
