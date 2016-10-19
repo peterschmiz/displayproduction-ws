@@ -85,6 +85,7 @@ Banner.BannerController = (function () {
 		isStarted = false,
 		legalVisible = false,
 		currentlyVisible = false,
+		is160x600 = false,
 		elements = {};
 
 	function init() {
@@ -94,6 +95,9 @@ Banner.BannerController = (function () {
 		initDOMElements();
 		initBindings();
 		generateCircles();
+
+		is160x600 = document.body.clientWidth === 160 && document.body.clientHeight === 600;
+
 		if (hasClass(Banner.element, 'loaded') === false) {
 			addClass(Banner.element, 'loaded');
 		} else {
@@ -128,7 +132,7 @@ Banner.BannerController = (function () {
 
 		elements.circle6.setAttribute('d', describeArc(82, 82, 54, randomInterval9, randomInterval10));
 
-		if (document.body.clientWidth === 160 && document.body.clientHeight === 600) {
+		if (is160x600) {
 			paths = document.querySelectorAll('svg path');
 			l = paths.length;
 
@@ -242,10 +246,14 @@ Banner.BannerController = (function () {
 			case 'start-screen':
 				console.time('measurement');
 				removeStyles();
+				removeClass(Banner.element, 'screen-1');
+				removeClass(Banner.element, 'screen-2');
+				addClass(Banner.element, 'start');
 				playPhase('screen-1');
 				break;
 			case 'screen-1':
-
+				removeClass(Banner.element, 'start');
+				addClass(Banner.element, 'screen-1');
 				TweenMax.to(elements.headline1, 0.5, { delay: 0.5, ease: Expo.easeOut, opacity: 1 });
 
 				if (
@@ -281,7 +289,7 @@ Banner.BannerController = (function () {
 					});
 					TweenMax.to(elements.circleswrapper, 1, { delay: 2, ease: Expo.easeOut, y: 10 });
 					TweenMax.to(elements.headline1, 1, { delay: 2, ease: Expo.easeOut, y: 180 });
-				} else if (document.body.clientWidth === 160 && document.body.clientHeight === 600) {
+				} else if (is160x600) {
 					TweenMax.to(elements.headline1, 1, { delay: 2, ease: Expo.easeOut, y: -60 });
 					TweenMax.to(elements.circleswrapper, 1, { delay: 2, ease: Expo.easeOut, y: -80 });
 				} else {
@@ -296,6 +304,8 @@ Banner.BannerController = (function () {
 				});
 				break;
 			case 'screen-2':
+				removeClass(Banner.element, 'screen-1');
+				addClass(Banner.element, 'screen-2');
 				TweenMax.to([elements.circles1, elements.circles2], 1, { delay: 0, css:{ transform:"rotate(" + getRandomInt(20, 30) * -1 + "deg)" }});
 
 				TweenMax.to(elements.circles1, 1, { delay: 0, css:{ transform:"rotate(" + getRandomInt(20, 30) * -1 + "deg)" }});
@@ -304,7 +314,6 @@ Banner.BannerController = (function () {
 				TweenMax.to(elements.circles4, 1, { delay: 0, css:{ transform:"rotate(" + getRandomInt(10, 25) * -1 + "deg)" }});
 				TweenMax.to(elements.circles5, 1, { delay: 0, css:{ transform:"rotate(" + getRandomInt(0, 10) * -1 + "deg)" }});
 				TweenMax.to(elements.circles6, 1, { delay: 0, css:{ transform:"rotate(" + getRandomInt(20, 40) * -1 + "deg)" }});
-
 
 				setTimeout(function() {
 					console.timeEnd('measurement');
