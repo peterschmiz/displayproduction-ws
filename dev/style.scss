@@ -8,7 +8,7 @@ body {
   padding: 0;
   font-family: "Verdana", "Geneva", sans-serif;
   font-weight: bold;
-  background: #d0d5db;
+  background: #fff;
 }
 
 .banner-wrapper {
@@ -19,6 +19,7 @@ body {
   border: 1px solid #d2d2d2;
   box-sizing: border-box;
   overflow: hidden;
+  background: #fff;
 
   &:before {
     position: absolute;
@@ -47,6 +48,17 @@ body {
 #banner-wrapper {
   width: 100%;
   height: 100%;
+  opacity: 0;
+}
+
+#bg-exit {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  cursor: pointer;
 }
 
 #circles-wrapper {
@@ -138,20 +150,21 @@ body {
   background-repeat: no-repeat;
   background-size: 100% auto;
   background-position: center 100%;
-}
 
-#main-background::after {
-  position: absolute;
-  display: none;
-  content: '';
-  width: 100%;
-  height: 100px;
-  top: 0;
-  left: 0;
-  z-index: 2;
-  background: linear-gradient(180deg, rgba(40, 44, 46, 0) 0%, rgba(40, 44, 46, 1) 100%);
-  background-repeat: no-repeat;
-  background-size: 100%;
+  &:after {
+    position: absolute;
+    display: none;
+    content: '';
+    width: 100%;
+    height: 100px;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    background: linear-gradient(180deg, rgba(40, 44, 46, 0) 0%, rgba(40, 44, 46, 1) 100%);
+    background-repeat: no-repeat;
+    background-size: 100%;
+  }
+
 }
 
 #legal-trigger {
@@ -160,7 +173,7 @@ body {
   height: 20px;
   bottom: 0;
   left: 0;
-  z-index: 110;
+  z-index: 1100;
   font-size: 10px;
   line-height: 20px;
   color: #fff;
@@ -172,25 +185,27 @@ body {
   -moz-user-select: none;
   -webkit-user-select: none;
   transition: background-color 1s cubic-bezier(0.190, 1.000, 0.220, 1.000);
-}
 
-#legal-trigger span {
-  display: block;
-}
+  span {
+    display: block;
+  }
 
-#legal-trigger.active {
-  background-color: rgba(0, 0, 0, 0);
-}
+  &.active {
+    background-color: rgba(0, 0, 0, 0);
 
-#legal-trigger.active span {
-  opacity: .5;
+    span {
+      opacity: .5;
+    }
+
+  }
+
 }
 
 #legal-copy {
   position: absolute;
   width: 100%;
   height: 100%;
-  z-index: 100;
+  z-index: 1000;
   top: 0;
   left: 0;
   font-size: 11px;
@@ -202,30 +217,31 @@ body {
   white-space: nowrap;
   background-color: rgba(0, 0, 0, .8);
   transform: translate(0%, 100%);
-}
 
-#legal-copy.visible {
-  transform: translate(0%, 0%);
-}
+  &.visible {
+    transform: translate(0%, 0%);
+  }
 
-#legal-copy:before {
-  content: '';
-  display: inline-block;
-  height: 100%;
-  vertical-align: middle;
-  margin-right: -.25em;
-}
+  &:before {
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    margin-right: -.25em;
+  }
 
-#legal-copy .legal-copy-content {
-  display: inline-block;
-  width: 100%;
-  vertical-align: top;
-  white-space: normal;
-}
+  .legal-copy-content {
+    display: inline-block;
+    width: 100%;
+    vertical-align: top;
+    white-space: normal;
+  }
 
-#legal-copy p {
-  padding: 0;
-  margin: 0 0 6px;
+  p {
+    padding: 0;
+    margin: 0 0 6px;
+  }
+
 }
 
 #headline-1 {
@@ -245,6 +261,57 @@ body {
   line-height: 22px;
   color: $peugeot-blue;
   box-sizing: border-box;
+}
+
+#overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 15;
+  opacity: 0;
+  background: rgba(255, 255, 255, 1);
+}
+
+#logo {
+  position: absolute;
+  width: 60px;
+  height: 72px;
+  top: 0;
+  right: 10px;
+  z-index: 16;
+  background: rgba(255, 255, 255, 1);
+  transform: translate(0%, -100%);
+
+  img {
+    position: absolute;
+    width: 80%;
+    height: auto;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+}
+
+#cta {
+  position: absolute;
+  width: auto;
+  height: auto;
+  left: 50%;
+  bottom: 42px;
+  padding: 18px 30px;
+  z-index: 25;
+  opacity: 0;
+  font-family: 'web-peugeot', sans-serif;
+  font-size: 15px;
+  white-space: nowrap;
+  text-transform: uppercase;
+  color: #fff;
+  background: $peugeot-blue;
+  border: 1px solid #fff;
+  transform: translate(-50%, 0%);
 }
 
 @media screen and (max-aspect-ratio: 1/2) {
@@ -304,6 +371,19 @@ body {
     width: 90px;
     height: 90px;
   }
+
+  #logo {
+    width: 30px;
+    height: 36px;
+    right: 8px;
+  }
+
+  #cta {
+    bottom: 24px;
+    padding: 9px 15px;
+    font-size: 13px;
+  }
+
 }
 
 @media screen and (width: 160px) and (height: 600px) {
@@ -331,6 +411,16 @@ body {
     left: 50%;
     z-index: 300;
     transform: translate(-50%, 100%);
+  }
+
+  #circle-text {
+
+    .line1,
+    .line2,
+    .line3 {
+      color: #fff;
+    }
+
   }
 
   #circle-text .line2 img {

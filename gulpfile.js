@@ -55,6 +55,6 @@ gulp.task('svgmin', function () {
 		.pipe(gulp.dest('prod'));
 });
 
-gulp.task('sass:watch', function () {
+gulp.task('watch', function () {
 	gulp.watch('dev/*.scss', ['sass']);
 });

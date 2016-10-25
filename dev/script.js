@@ -85,18 +85,24 @@ Banner.BannerController = (function () {
 		isStarted = false,
 		legalVisible = false,
 		currentlyVisible = false,
+		is160x160 = false,
 		is160x600 = false,
+		is300x600 = false,
+		is300x250 = false,
 		elements = {};
 
 	function init() {
 		console.log('%c [Banner.BannerController] Banner controller inited ', 'background: #199860; color: #fff');
 
+		is160x160 = document.body.clientWidth === 160 && document.body.clientHeight === 160;
+		is160x600 = document.body.clientWidth === 160 && document.body.clientHeight === 600;
+		is300x600 = document.body.clientWidth === 300 && document.body.clientHeight === 600;
+		is300x250 = document.body.clientWidth === 300 && document.body.clientHeight === 250;
+
 		initWindowShowListener();
 		initDOMElements();
 		initBindings();
 		generateCircles();
-
-		is160x600 = document.body.clientWidth === 160 && document.body.clientHeight === 600;
 
 		if (hasClass(Banner.element, 'loaded') === false) {
 			addClass(Banner.element, 'loaded');
@@ -175,13 +181,10 @@ Banner.BannerController = (function () {
 				TweenMax.to(elements.legalcopy, 1, { delay: 0, ease: Expo.easeOut, x: '0%', y: '100%' });
 			}
 			legalVisible = false;
-			elements.legaltrigger.removeEventListener('click', toggleLegal, false);
-			playPhase(actualPhase);
 		} else {
 			addClass(elements.legaltrigger, 'active');
 			TweenMax.to(elements.legalcopy, 1, { delay: 0, ease: Expo.easeOut, x: '0%', y: '0%' });
 			legalVisible = true;
-			window.clearTimeout(playPhaseTimer);
 		}
 
 	}
@@ -192,6 +195,8 @@ Banner.BannerController = (function () {
 			formattedId,
 			i = 0,
 			l = ids.length;
+
+		elements.wrapper = wrapper;
 
 		for (i; i < l; i++) {
 			formattedId = ids[i].getAttribute('id').replace(/-/ig, '').toLowerCase();
@@ -244,22 +249,22 @@ Banner.BannerController = (function () {
 		switch (phaseName) {
 
 			case 'start-screen':
-				console.time('measurement');
 				removeStyles();
 				removeClass(Banner.element, 'screen-1');
 				removeClass(Banner.element, 'screen-2');
 				addClass(Banner.element, 'start');
-				playPhase('screen-1');
+
+				TweenMax.to(elements.wrapper, 0.3, { delay: 0, ease: Expo.easeOut, opacity: 1, onComplete: function() {
+					playPhase('screen-1');
+				}});
+
 				break;
 			case 'screen-1':
 				removeClass(Banner.element, 'start');
 				addClass(Banner.element, 'screen-1');
 				TweenMax.to(elements.headline1, 0.5, { delay: 0.5, ease: Expo.easeOut, opacity: 1 });
 
-				if (
-					document.body.clientWidth === 300 && document.body.clientHeight === 250 ||
-					document.body.clientWidth === 160 && document.body.clientHeight === 160
-				) {
+				if (is160x160 || is300x250) {
 					TweenMax.to(elements.headline1, 1, {
 						delay: 2,
 						ease: Expo.easeOut,
@@ -281,7 +286,7 @@ Banner.BannerController = (function () {
 							backgroundPosition: 'center 30%'
 						});
 					}
-				} else if (document.body.clientWidth === 300 && document.body.clientHeight === 600) {
+				} else if (is300x600) {
 					TweenMax.to(elements.mainbackground, 1, {
 						delay: 2,
 						ease: Expo.easeOut,
@@ -296,7 +301,7 @@ Banner.BannerController = (function () {
 					TweenMax.to(elements.headline1, 1, { delay: 2, ease: Expo.easeOut, opacity: 0 });
 				}
 
-				TweenMax.set(elements.headline1, {
+				TweenMax.set(Banner.element, {
 					delay: 3,
 					onComplete: function() {
 						playPhase('screen-2');
@@ -306,7 +311,6 @@ Banner.BannerController = (function () {
 			case 'screen-2':
 				removeClass(Banner.element, 'screen-1');
 				addClass(Banner.element, 'screen-2');
-				TweenMax.to([elements.circles1, elements.circles2], 1, { delay: 0, css:{ transform:"rotate(" + getRandomInt(20, 30) * -1 + "deg)" }});
 
 				TweenMax.to(elements.circles1, 1, { delay: 0, css:{ transform:"rotate(" + getRandomInt(20, 30) * -1 + "deg)" }});
 				TweenMax.to(elements.circles2, 1, { delay: 0, css:{ transform:"rotate(" + getRandomInt(15, 20) * -1 + "deg)" }});
@@ -315,13 +319,42 @@ Banner.BannerController = (function () {
 				TweenMax.to(elements.circles5, 1, { delay: 0, css:{ transform:"rotate(" + getRandomInt(0, 10) * -1 + "deg)" }});
 				TweenMax.to(elements.circles6, 1, { delay: 0, css:{ transform:"rotate(" + getRandomInt(20, 40) * -1 + "deg)" }});
 
-				setTimeout(function() {
-					console.timeEnd('measurement');
-					playPhase('start-screen');
-				}, 4000);
+				TweenMax.set(Banner.element, {
+					delay: 2,
+					onComplete: function() {
+						playPhase('screen-3');
+					}
+				});
+
+				break;
+
+			case 'screen-3':
+				if (is160x160 || is300x250) {
+					TweenMax.to(elements.headline1, 1, {
+						delay: 2,
+						ease: Expo.easeOut,
+						y: document.body.clientHeight === 160 ? 46 : 72
+					});
+					TweenMax.to(elements.circleswrapper, 1, { delay: 2, ease: Expo.easeOut, y: '-100%' });
+					TweenMax.to(elements.mainbackground, 1, {
+						delay: 2,
+						ease: Expo.easeOut,
+						backgroundPosition: 'center 100%'
+					});
+					TweenMax.to(elements.logo, 0.6, { delay: 3, ease: Expo.easeOut, y: 0 });
+				}
+
+				TweenMax.to(elements.overlay, 1, { delay: 2.5, opacity: 0.65 });
+				TweenMax.to(elements.cta, 0.6, { delay: 4, ease: Expo.easeOut, opacity: 1 });
+
+				TweenMax.to(elements.wrapper, 0.6, { delay: 10, ease: Expo.easeOut, opacity: 0, onComplete: function() {
+					playPhase('restart');
+				}});
+
 				break;
 			case 'restart':
 				console.log('%c [Banner.BannerController] Banner is looping, restarting... ', 'background: #199860; color: #fff');
+				playPhase('start-screen');
 				break;
 		}
 	}
