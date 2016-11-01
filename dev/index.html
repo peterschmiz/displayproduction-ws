@@ -5,6 +5,7 @@
 		<title>Display production workshop example - 300x250</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 
+		<!-- Load the stylesheets first, possibly at the top part of the head -->
 		<!-- Banner styles & animations -->
 		<link rel="stylesheet" href="style.css" />
 		<link rel="stylesheet" href="fonts.css" />
@@ -12,7 +13,7 @@
 		<!-- DoubleClick Enabler -->
 		<script src="https://s0.2mdn.net/ads/studio/Enabler.js"></script>
 
-		<!--CDN links for the latest TweenMax -->
+		<!-- CDN links for the latest TweenMax -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
 
 		<!-- Fontface observer -->
@@ -24,6 +25,8 @@
 	</head>
 	<body>
 
+		<!-- The main wrapper of our banner -->
+		<!-- Please note the IDs, the script will parse them -->
 		<div id="example-banner" class="banner-wrapper">
 			<div id="banner-wrapper">
 
@@ -96,15 +99,18 @@
 					</div>
 				</div>
 
+				<!-- The script will look for the 'bg-exit' ID for the clickthrough -->
 				<div id="bg-exit"></div>
 			</div>
 		</div>
 
+		<!-- Script initialization part -->
 		<script>
 			(function() {
 				var peugeotNormal = new FontFaceObserver('web-peugeot');
 				var peugeotBold = new FontFaceObserver('web-peugeot-bold');
 
+				// After the page / iframe has been loaded
 				window.onload = function () {
 					if (Enabler.isInitialized()) {
 						enablerInitHandler();
@@ -113,8 +119,10 @@
 					}
 				};
 
+				// Method called once the DC's Enabler is also ready
 				function enablerInitHandler() {
 					console.log('%c [Banner] Loading webfonts...', 'background: #199860; color: #fff');
+					// Don't forget to load all the used web fonts! Font family name is defined in the CSS!
 					Promise.all([peugeotNormal.load(), peugeotBold.load()]).then(function () {
 						console.log('%c [Banner] Webfonts loaded!', 'background: #199860; color: #fff');
 						Banner.init('example-banner', [

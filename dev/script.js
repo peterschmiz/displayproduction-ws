@@ -1,5 +1,8 @@
 var Banner = Banner || {};
 
+/**
+ * Main banner module, do not edit!
+ */
 Banner = (function (doc) {
 	'use strict';
 
@@ -19,6 +22,9 @@ Banner = (function (doc) {
 
 }(document));
 
+/**
+ * The loader sub module, do not edit!
+ */
 Banner.Loader = (function () {
 	'use strict';
 
@@ -78,6 +84,10 @@ Banner.Loader = (function () {
 
 }());
 
+/**
+ * The controller sub module, all the logic / controll
+ * goes here!
+ */
 Banner.BannerController = (function () {
 	'use strict';
 
@@ -96,6 +106,7 @@ Banner.BannerController = (function () {
 	function init() {
 		console.log('%c [Banner.BannerController] Banner controller inited ', 'background: #199860; color: #fff');
 
+		// Set the used sizes
 		is160x160 = document.body.clientWidth === 160 && document.body.clientHeight === 160;
 		is160x600 = document.body.clientWidth === 160 && document.body.clientHeight === 600;
 		is300x600 = document.body.clientWidth === 300 && document.body.clientHeight === 600;
@@ -116,6 +127,7 @@ Banner.BannerController = (function () {
 		play();
 	}
 
+	// Generate SVG circles
 	function generateCircles() {
 		var randomInterval1 = getRandomInt(120, 180),
 			randomInterval2 = getRandomInt(360, 380),
@@ -153,10 +165,12 @@ Banner.BannerController = (function () {
 		}
 	}
 
+	// Handle clickthrough
 	function bgExitHandler() {
 		Enabler.exit('Background Exit');
 	}
 
+	// Init all the event handlers we use
 	function initBindings() {
 		if (elements.bgexit !== undefined) {
 			elements.bgexit.addEventListener('click', bgExitHandler, false);
@@ -222,6 +236,7 @@ Banner.BannerController = (function () {
 		}
 	}
 
+	// Generate random integers between the 2 parameters
 	function getRandomInt(min, max) {
 		return Math.floor(Math.random() * (max - min + 1) + min);
 	}
@@ -235,6 +250,7 @@ Banner.BannerController = (function () {
 		};
 	}
 
+	// Generate SVG arc
 	function describeArc(x, y, radius, startAngle, endAngle) {
 		var start = polarToCartesian(x, y, radius, endAngle),
 			end = polarToCartesian(x, y, radius, startAngle),
@@ -247,6 +263,7 @@ Banner.BannerController = (function () {
 		return d;
 	}
 
+	// The banner phases
 	function playPhase(phaseName) {
 		console.log('%c [Banner.BannerController] Playing phase: %s ', 'background: #199860; color: #fff', phaseName);
 
