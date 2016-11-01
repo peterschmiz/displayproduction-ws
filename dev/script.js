@@ -89,6 +89,8 @@ Banner.BannerController = (function () {
 		is160x600 = false,
 		is300x600 = false,
 		is300x250 = false,
+		is728x90 = false,
+		is840x150 = false,
 		elements = {};
 
 	function init() {
@@ -98,6 +100,8 @@ Banner.BannerController = (function () {
 		is160x600 = document.body.clientWidth === 160 && document.body.clientHeight === 600;
 		is300x600 = document.body.clientWidth === 300 && document.body.clientHeight === 600;
 		is300x250 = document.body.clientWidth === 300 && document.body.clientHeight === 250;
+		is728x90 = document.body.clientWidth === 728 && document.body.clientHeight === 90;
+		is840x150 = document.body.clientWidth === 840 && document.body.clientHeight === 150;
 
 		initWindowShowListener();
 		initDOMElements();
@@ -296,7 +300,19 @@ Banner.BannerController = (function () {
 					TweenMax.to(elements.headline1, 1, { delay: 2, ease: Expo.easeOut, y: 180 });
 				} else if (is160x600) {
 					TweenMax.to(elements.headline1, 1, { delay: 2, ease: Expo.easeOut, y: -60 });
-					TweenMax.to(elements.circleswrapper, 1, { delay: 2, ease: Expo.easeOut, y: -80 });
+					TweenMax.to(elements.circleswrapper, 1, {
+						delay: 2,
+						ease: Expo.easeOut,
+						y: -80
+					});
+				} else if (is728x90) {
+					TweenMax.to(elements.circleswrapper, 1, { delay: 2, ease: Expo.easeOut, x: 120, y: '-50%' });
+					TweenMax.to(elements.headline1, 1, { delay: 2, ease: Expo.easeOut, opacity: 0 });
+					TweenMax.to(elements.cta, 0.6, { delay: 2.5, ease: Expo.easeOut, opacity: 1 });
+				} else if (is840x150) {
+					TweenMax.to(elements.circleswrapper, 1, { delay: 2, ease: Expo.easeOut, x: 80, y: '-50%' });
+					TweenMax.to(elements.headline1, 1, { delay: 2, ease: Expo.easeOut, opacity: 0 });
+					TweenMax.to(elements.cta, 0.6, { delay: 2.5, ease: Expo.easeOut, opacity: 1 });
 				} else {
 					TweenMax.to(elements.headline1, 1, { delay: 2, ease: Expo.easeOut, opacity: 0 });
 				}
@@ -342,6 +358,20 @@ Banner.BannerController = (function () {
 						backgroundPosition: 'center 100%'
 					});
 					TweenMax.to(elements.logo, 0.6, { delay: 3, ease: Expo.easeOut, y: 0 });
+				} else if (is300x600) {
+					TweenMax.to(elements.circleswrapper, 0.5, { delay: 2, ease: Expo.easeOut, opacity: 0 });
+					TweenMax.to(elements.headline1, 1, { delay: 2.3, ease: Expo.easeOut, y: 130 });
+					TweenMax.to(elements.logo, 0.6, { delay: 3, ease: Expo.easeOut, y: 0 });
+				} else if (is160x600) {
+					TweenMax.to(elements.circleswrapper, 0.5, { delay: 2, ease: Expo.easeOut, opacity: 0 });
+					TweenMax.to(elements.headline1, 1, { delay: 2.5, ease: Expo.easeOut, css:{ color: '#00264a' }});
+					TweenMax.to(elements.logo, 0.6, { delay: 3, ease: Expo.easeOut, y: 0 });
+				} else if (is728x90) {
+					TweenMax.to(elements.logo, 0.6, { delay: 3, ease: Expo.easeOut, y: 0 });
+					TweenMax.to(elements.cta, 0.3, { delay: 3, scale: 1.2, yoyo: true, repeat: 1 });
+				} else if (is840x150) {
+					TweenMax.to(elements.logo, 0.6, { delay: 3, ease: Expo.easeOut, y: 0 });
+					TweenMax.to(elements.cta, 0.3, { delay: 3, scale: 1.2, yoyo: true, repeat: 1 });
 				}
 
 				TweenMax.to(elements.overlay, 1, { delay: 2.5, opacity: 0.65 });
